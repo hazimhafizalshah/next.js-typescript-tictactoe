@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-function Square({value, onSquareClick}: {value: string, onSquareClick: ( )=> void}) {
+function Square({value, onSquareClick}: {value: string, onSquareClick: ( ) => void}) {
   return (
     <button
       className="square"
@@ -14,12 +14,18 @@ function Square({value, onSquareClick}: {value: string, onSquareClick: ( )=> voi
 }
 
 function Board() {
+  const [xIsNext, setXIsNext] = useState(true);
   const [squares, setSquares] = useState(Array<string>(9).fill("#"));
 
   function handleClick(i: number) {
     const nextSquares = squares.slice();
-    nextSquares[i] = "X";
+    if (xIsNext) {
+      nextSquares[i] = "X";
+    } else {
+      nextSquares[i] = "O";
+    }
     setSquares(nextSquares);
+    setXIsNext(!xIsNext);
   }
 
   return (
